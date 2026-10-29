@@ -1,0 +1,179 @@
+body {
+    font-family: sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    line-height: 1.6; 
+    margin: 0; /* Внешние отступы */
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 30px auto; /* Внешние отступы: сверху и снизу - 30px, слева и справа - авто */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px; /* Скругление углов */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень: горизонтальное смещение, вертикальное, размытие, цвет */
+    position: relative; /* для позиционирования дочерних элементов*/
+}
+
+.todo-title {
+    font-size: 2.5rem;
+    font-weight: bold; /* Жирный шрифт */
+    text-align: center;
+    margin-bottom: 20px; /* Нижний внешний отступ */
+    color: #2980b9;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.todo-list {
+    list-style: none; /* Убирает маркеры списка */
+    padding: 0;
+    max-height: 300px;
+    overflow-y: auto; /* Если контент превышает высоту, появляется вертикальная прокрутка */
+}
+/*Элемент списка дел*/
+.todo-item {
+    display: flex;
+    align-items: flex-start; /* Выравнивание элементов по верхнему краю */
+    justify-content: space-between; /* Распределяет элементы по краям строки (текст слева, кнопки справа) */
+    padding: 15px;
+    margin-bottom: 10px; /* Нижний внешний отступ */
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border-left: 5px solid #3498db;
+    word-break: break-word; /* Разрешает перенос длинных слов на новую строку */
+}
+
+.task-content {
+    flex-grow: 1; /* Позволяет блоку занимать все доступное пространство */
+    margin-right: 10px;
+}
+
+.task-name {
+    font-size: 1.1rem;
+    color: #333;
+    display: block; /* Занимает всю доступную ширину */
+}
+.todo-actions {
+    display: flex;
+    flex-shrink: 0; /* Предотвращает сжатие элементов */
+    gap: 10px; /* Расстояние между кнопками */
+}
+.todo-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12); /* Усиленная тень при наведении */
+}
+
+.todo-item.completed {
+    opacity: 0.7; /* Полупрозрачность */
+}
+
+.todo-item.completed .task-name {
+    color: #777; /* Цвет текста - светло-серый */
+    text-decoration: line-through; /* Перечеркнутый текст */
+}
+
+.todo-button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer; /* Изменяет курсор при наведении */
+    transition: background-color 0.3s ease; /* Плавная анимация */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.todo-button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px); /* Сдвиг вверх на 1px */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.todo-button-complete {
+    background-color: #2ecc71;
+}
+
+.todo-button-uncomplete {
+    background-color: #f39c12;
+}
+
+.todo-button-edit {
+    background-color: #3498db;
+}
+
+.todo-button-delete {
+    background-color: #e74c3c;
+}
+
+.todo-button-add {
+    background-color: #2980b9;
+}
+
+.todo-add-form {
+    margin-top: 20px;
+    position: sticky; /* Фиксированное положение при прокрутке */
+    bottom: 0; /* К низу контейнера */
+    background-color: #fff;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    z-index: 10; /* Отображение поверх других элементов при прокрутке */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.input-group {
+    display: flex;
+}
+
+.todo-input {
+    border-radius: 5px 0 0 5px; /* Скругление углов (только левые) */
+    border: 1px solid #ccc; /* Рамка */
+    padding: 10px;
+    flex-grow: 1; /* Занимает все доступное пространство */
+    outline: none; /* Убирает обводку при фокусировке */
+}
+
+.todo-input:focus {
+    border-color: #2980b9;
+    box-shadow: 0 0 5px rgba(41, 128, 185, 0.3);
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    .todo-title {
+        font-size: 2rem;
+    }
+
+    .todo-item {
+        flex-direction: column; /* Располагает элементы в столбец */
+        align-items: flex-start; /* Выравнивает элементы по левому краю */
+    }
+
+    .todo-actions {
+        margin-top: 10px;
+        width: 100%;
+        justify-content: space-around; /* Распределяет элементы равномерно */
+    }
+
+    .todo-button {
+        width: 45%;
+    }
+
+    .input-group {
+        flex-direction: column;
+    }
+
+    .todo-input {
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    .todo-add-form {
+        position: static; /* Убирает фиксированное положение */
+        box-shadow: none; /* Убирает тень */
+    }
+}
