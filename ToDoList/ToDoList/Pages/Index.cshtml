@@ -1,0 +1,134 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Список дел";
+}
+<div class="container todo-app">
+    <h1 class="todo-title">Мой список дел</h1>
+
+    <ul class="todo-list">
+        @foreach (var task in Model.Tasks)
+        {
+            <li class="todo-item @(task.IsCompleted ? "completed" : "")">
+                @* Элемент списка, представляющий одну задачу. Класс "completed" добавляется, если задача выполнена *@
+                <div class="task-content">
+                    <span class="task-name">
+                        @if (task.IsCompleted)
+                        {
+                            <del>@task.Name</del>
+                        }
+                        else
+                        {
+                            @task.Name
+                        }
+                    </span>
+                </div>
+
+                <div class="todo-actions">
+                    @if (task.IsCompleted)
+                    {
+                        <form method="post" asp-page-handler="UnmarkCompleteTask" asp-route-taskId="@task.Id">
+                            <button type="submit" class="todo-button todo-button-uncomplete">Не выполнено</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form method="post" asp-page-handler="CompleteTask" asp-route-taskId="@task.Id">
+                            <button type="submit" class="todo-button todo-button-complete">Выполнено</button>
+                        </form>
+                    }
+
+                    <button type="button" class="todo-button todo-button-edit" data-bs-toggle="modal" data-bs-target="#editModal-@task.Id">Редактировать</button> @*кнопка "Редактировать", открывающая модальное окно *@
+
+                    <form method="post" asp-page-handler="DeleteTask" asp-route-taskId="@task.Id" class="delete-form" data-task-id="@task.Id">
+                        <button type="button" class="todo-button todo-button-delete delete-button">Удалить</button>
+                    </form>
+                </div>
+
+                <div class="modal fade" id="editModal-@task.Id" tabindex="-1" aria-labelledby="editModalLabel-@task.Id" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editModalLabel-@task.Id">Редактировать</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post" asp-page-handler="UpdateTask">
+                                    <input type="hidden" asp-for="EditTaskId" value="@task.Id" />
+                                    <div class="mb-3">
+                                        <label for="editTaskName" class="form-label">Задача</label>
+                                        <input type="text" class="form-control" asp-for="EditTaskName" value="@task.Name">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                                        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+
+    <form method="post" asp-page-handler="AddTask" class="todo-add-form">
+        <div class="input-group">
+            <input type="text" class="form-control todo-input" asp-for="NewTask" placeholder="Добавьте задачу">
+            <button class="todo-button todo-button-add" type="submit">Добавить</button>
+        </div>
+    </form>
+</div>
+
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Подтверждение удаления</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Вы уверены, что хотите удалить эту задачу?
+                <div class="form-check mt-2">
+                    <input class="form-check-input" type="checkbox" value="" id="dontAskAgain">
+                    <label class="form-check-label" for="dontAskAgain">Больше не спрашивать</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Нет</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteButton">Да, удалить</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $(".delete-button").click(function (e) {
+                e.preventDefault();
+                var taskId = $(this).closest(".delete-form").data("task-id");
+                var confirmDelete = localStorage.getItem("confirmDelete");
+                var $deleteForm = $(this).closest(".delete-form");
+
+                if (confirmDelete === "true") {
+                    $deleteForm.submit();
+                } else {
+                    $("#confirmDeleteModal").modal("show");
+                    $("#confirmDeleteButton").data("task-id", taskId);
+                    $("#confirmDeleteButton").data("delete-form", $deleteForm); 
+                }
+            });
+
+            $("#confirmDeleteButton").click(function () {
+                var $deleteForm = $(this).data("delete-form"); 
+                $deleteForm.submit();
+                $("#confirmDeleteModal").modal("hide");
+            });
+
+            $("#dontAskAgain").change(function () {
+                localStorage.setItem("confirmDelete", this.checked ? "true" : "false");
+            });
+        });
+    </script>
+}
