@@ -1,0 +1,12 @@
+LogKeyStrokes=False
+ModerationEnabled=False
+LogFilePath=logs
+ForbiddenWords=
+BannedProcesses=
+
+# Скопируйте этот файл в settings.txt (рядом с ExamMonitoring.exe) и настройте под себя.
+# LogKeyStrokes     — True/False, писать ли каждое нажатие клавиши в logs/keystrokes.txt
+# ModerationEnabled — True/False, проверять ли набранный текст на запрещённые слова
+# LogFilePath       — папка для логов, относительно папки приложения
+# ForbiddenWords    — слова через запятую, при обнаружении создаётся отчёт о нарушении
+# BannedProcesses   — имена exe-файлов через запятую, которые будут закрываться автоматически
