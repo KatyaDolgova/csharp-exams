@@ -1,6 +1,6 @@
 # csharp-exam
 
-Учебные проекты на C# / Windows Forms, сделанные для экзаменов.
+Учебные проекты на C# / Windows Forms.
 
 - [OlimpiadaExam](OlimpiadaExam/README.md)
 - [ExamMonitoring](ExamMonitoring/README.md)
