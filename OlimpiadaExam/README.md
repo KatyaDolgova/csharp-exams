@@ -39,12 +39,12 @@ Windows Forms приложение на C# для учёта Олимпийск�
 
 ## Запуск
 
-1. Откройте [OlimpiadaExam.sln](../OlimpiadaExam.sln) в Visual Studio.
+1. Откройте [OlimpiadaExam.sln](OlimpiadaExam.sln) в Visual Studio.
 2. Восстановите NuGet-пакеты (Visual Studio сделает это при сборке).
 3. Убедитесь, что установлен SQL Server LocalDB.
 4. Нажмите F5.
 
 Файл БД [ExamOlimpBd.mdf](ExamOlimpBd.mdf) уже содержится в репозитории. Чтобы заполнить пустую базу тестовыми данными, выполните по порядку:
 
-1. [ExamOl.sql](../ExamOl.sql) - олимпиады;
-2. [ExamSql.sql](../ExamSql.sql) - виды спорта, соревнования, участники, результаты.
+1. [ExamOl.sql](ExamOl.sql) - олимпиады;
+2. [ExamSql.sql](ExamSql.sql) - виды спорта, соревнования, участники, результаты.
