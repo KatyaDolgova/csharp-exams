@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35707.178 d17.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OlimpiadaExam", "OlimpiadaExam\OlimpiadaExam.csproj", "{EC8E2CD7-046F-43F8-A363-C3239FF50176}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OlimpiadaExam", "OlimpiadaExam.csproj", "{EC8E2CD7-046F-43F8-A363-C3239FF50176}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
