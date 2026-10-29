@@ -1,0 +1,344 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище ExamOlimpBdModel" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Competitions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdOlimp" Type="int" Nullable="false" />
+          <Property Name="IdTypesSport" Type="int" Nullable="false" />
+          <Property Name="NumberPart" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Olympus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Oyear" Type="int" Nullable="false" />
+          <Property Name="Otype" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="HostCountry" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Participants">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Surname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Country" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TypeSport" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="BirthDate" Type="date" Nullable="false" />
+          <Property Name="FotoPath" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Results">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdPart" Type="int" Nullable="false" />
+          <Property Name="IdOlimp" Type="int" Nullable="false" />
+          <Property Name="Place" Type="int" Nullable="false" />
+          <Property Name="Medal" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="TypesOfSports">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Competiti__IdOli__2A4B4B5E">
+          <End Role="Olympus" Type="Self.Olympus" Multiplicity="1" />
+          <End Role="Competitions" Type="Self.Competitions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Olympus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Competitions">
+              <PropertyRef Name="IdOlimp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Competiti__IdTyp__2B3F6F97">
+          <End Role="TypesOfSports" Type="Self.TypesOfSports" Multiplicity="1" />
+          <End Role="Competitions" Type="Self.Competitions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypesOfSports">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Competitions">
+              <PropertyRef Name="IdTypesSport" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Results__IdOlimp__32E0915F">
+          <End Role="Olympus" Type="Self.Olympus" Multiplicity="1" />
+          <End Role="Results" Type="Self.Results" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Olympus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Results">
+              <PropertyRef Name="IdOlimp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Results__IdPart__31EC6D26">
+          <End Role="Participants" Type="Self.Participants" Multiplicity="1" />
+          <End Role="Results" Type="Self.Results" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Participants">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Results">
+              <PropertyRef Name="IdPart" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ExamOlimpBdModelContainer">
+          <EntitySet Name="Competitions" EntityType="Self.Competitions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Olympus" EntityType="Self.Olympus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Participants" EntityType="Self.Participants" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Results" EntityType="Self.Results" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypesOfSports" EntityType="Self.TypesOfSports" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Competiti__IdOli__2A4B4B5E" Association="Self.FK__Competiti__IdOli__2A4B4B5E">
+            <End Role="Olympus" EntitySet="Olympus" />
+            <End Role="Competitions" EntitySet="Competitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Competiti__IdTyp__2B3F6F97" Association="Self.FK__Competiti__IdTyp__2B3F6F97">
+            <End Role="TypesOfSports" EntitySet="TypesOfSports" />
+            <End Role="Competitions" EntitySet="Competitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Results__IdOlimp__32E0915F" Association="Self.FK__Results__IdOlimp__32E0915F">
+            <End Role="Olympus" EntitySet="Olympus" />
+            <End Role="Results" EntitySet="Results" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Results__IdPart__31EC6D26" Association="Self.FK__Results__IdPart__31EC6D26">
+            <End Role="Participants" EntitySet="Participants" />
+            <End Role="Results" EntitySet="Results" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ExamOlimpBdModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Competitions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdOlimp" Type="Int32" Nullable="false" />
+          <Property Name="IdTypesSport" Type="Int32" Nullable="false" />
+          <Property Name="NumberPart" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Olympus" Relationship="Self.FK__Competiti__IdOli__2A4B4B5E" FromRole="Competitions" ToRole="Olympus" />
+          <NavigationProperty Name="TypesOfSports" Relationship="Self.FK__Competiti__IdTyp__2B3F6F97" FromRole="Competitions" ToRole="TypesOfSports" />
+        </EntityType>
+        <EntityType Name="Olympus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Oyear" Type="Int32" Nullable="false" />
+          <Property Name="Otype" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="HostCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Competitions" Relationship="Self.FK__Competiti__IdOli__2A4B4B5E" FromRole="Olympus" ToRole="Competitions" />
+          <NavigationProperty Name="Results" Relationship="Self.FK__Results__IdOlimp__32E0915F" FromRole="Olympus" ToRole="Results" />
+        </EntityType>
+        <EntityType Name="Participants">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TypeSport" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FotoPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Results" Relationship="Self.FK__Results__IdPart__31EC6D26" FromRole="Participants" ToRole="Results" />
+        </EntityType>
+        <EntityType Name="Results">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdPart" Type="Int32" Nullable="false" />
+          <Property Name="IdOlimp" Type="Int32" Nullable="false" />
+          <Property Name="Place" Type="Int32" Nullable="false" />
+          <Property Name="Medal" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Olympus" Relationship="Self.FK__Results__IdOlimp__32E0915F" FromRole="Results" ToRole="Olympus" />
+          <NavigationProperty Name="Participants" Relationship="Self.FK__Results__IdPart__31EC6D26" FromRole="Results" ToRole="Participants" />
+        </EntityType>
+        <EntityType Name="TypesOfSports">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Competitions" Relationship="Self.FK__Competiti__IdTyp__2B3F6F97" FromRole="TypesOfSports" ToRole="Competitions" />
+        </EntityType>
+        <Association Name="FK__Competiti__IdOli__2A4B4B5E">
+          <End Role="Olympus" Type="Self.Olympus" Multiplicity="1" />
+          <End Role="Competitions" Type="Self.Competitions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Olympus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Competitions">
+              <PropertyRef Name="IdOlimp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Competiti__IdTyp__2B3F6F97">
+          <End Role="TypesOfSports" Type="Self.TypesOfSports" Multiplicity="1" />
+          <End Role="Competitions" Type="Self.Competitions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypesOfSports">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Competitions">
+              <PropertyRef Name="IdTypesSport" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Results__IdOlimp__32E0915F">
+          <End Role="Olympus" Type="Self.Olympus" Multiplicity="1" />
+          <End Role="Results" Type="Self.Results" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Olympus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Results">
+              <PropertyRef Name="IdOlimp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Results__IdPart__31EC6D26">
+          <End Role="Participants" Type="Self.Participants" Multiplicity="1" />
+          <End Role="Results" Type="Self.Results" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Participants">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Results">
+              <PropertyRef Name="IdPart" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ExamOlimpBdEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Competitions" EntityType="Self.Competitions" />
+          <EntitySet Name="Olympus" EntityType="Self.Olympus" />
+          <EntitySet Name="Participants" EntityType="Self.Participants" />
+          <EntitySet Name="Results" EntityType="Self.Results" />
+          <EntitySet Name="TypesOfSports" EntityType="Self.TypesOfSports" />
+          <AssociationSet Name="FK__Competiti__IdOli__2A4B4B5E" Association="Self.FK__Competiti__IdOli__2A4B4B5E">
+            <End Role="Olympus" EntitySet="Olympus" />
+            <End Role="Competitions" EntitySet="Competitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Competiti__IdTyp__2B3F6F97" Association="Self.FK__Competiti__IdTyp__2B3F6F97">
+            <End Role="TypesOfSports" EntitySet="TypesOfSports" />
+            <End Role="Competitions" EntitySet="Competitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Results__IdOlimp__32E0915F" Association="Self.FK__Results__IdOlimp__32E0915F">
+            <End Role="Olympus" EntitySet="Olympus" />
+            <End Role="Results" EntitySet="Results" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Results__IdPart__31EC6D26" Association="Self.FK__Results__IdPart__31EC6D26">
+            <End Role="Participants" EntitySet="Participants" />
+            <End Role="Results" EntitySet="Results" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ExamOlimpBdModelContainer" CdmEntityContainer="ExamOlimpBdEntities">
+          <EntitySetMapping Name="Competitions">
+            <EntityTypeMapping TypeName="ExamOlimpBdModel.Competitions">
+              <MappingFragment StoreEntitySet="Competitions">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IdOlimp" ColumnName="IdOlimp" />
+                <ScalarProperty Name="IdTypesSport" ColumnName="IdTypesSport" />
+                <ScalarProperty Name="NumberPart" ColumnName="NumberPart" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Olympus">
+            <EntityTypeMapping TypeName="ExamOlimpBdModel.Olympus">
+              <MappingFragment StoreEntitySet="Olympus">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Oyear" ColumnName="Oyear" />
+                <ScalarProperty Name="Otype" ColumnName="Otype" />
+                <ScalarProperty Name="HostCountry" ColumnName="HostCountry" />
+                <ScalarProperty Name="City" ColumnName="City" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Participants">
+            <EntityTypeMapping TypeName="ExamOlimpBdModel.Participants">
+              <MappingFragment StoreEntitySet="Participants">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="TypeSport" ColumnName="TypeSport" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="FotoPath" ColumnName="FotoPath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Results">
+            <EntityTypeMapping TypeName="ExamOlimpBdModel.Results">
+              <MappingFragment StoreEntitySet="Results">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IdPart" ColumnName="IdPart" />
+                <ScalarProperty Name="IdOlimp" ColumnName="IdOlimp" />
+                <ScalarProperty Name="Place" ColumnName="Place" />
+                <ScalarProperty Name="Medal" ColumnName="Medal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypesOfSports">
+            <EntityTypeMapping TypeName="ExamOlimpBdModel.TypesOfSports">
+              <MappingFragment StoreEntitySet="TypesOfSports">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
